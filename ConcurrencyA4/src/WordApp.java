@@ -1,4 +1,4 @@
-package skeletonCodeAssgnmt2;
+
 
 import javax.swing.*;
 
@@ -95,11 +95,26 @@ public class WordApp {
 			      public void actionPerformed(ActionEvent e)
 			      {
 			    	  //[snip]
+                                  
+			      }
+			    });
+                                //exit button
+                JButton quitB = new JButton("Quit");;
+			
+				// add the listener to the jbutton to handle the "pressed" event
+				quitB.addActionListener(new ActionListener()
+			    {
+			      public void actionPerformed(ActionEvent e)
+			      {
+			    	  //[snip]
+                                  frame.dispose();
 			      }
 			    });
 		
 		b.add(startB);
 		b.add(endB);
+                b.add(quitB);
+                
 		
 		g.add(b);
     	
@@ -136,10 +151,15 @@ public static String[] getDictFromFile(String filename) {
 	public static void main(String[] args) {
     	
 		//deal with command line arguments
-		totalWords=Integer.parseInt(args[0]);  //total words to fall
-		noWords=Integer.parseInt(args[1]); // total words falling at any point
+                Scanner in=new Scanner(System.in);
+                totalWords=Integer.parseInt(in.nextLine());
+                noWords=Integer.parseInt(in.nextLine());
+		//totalWords=Integer.parseInt(args[0]);  //total words to fall
+		//noWords=Integer.parseInt(args[1]); // total words falling at any point
 		assert(totalWords>=noWords); // this could be done more neatly
-		String[] tmpDict=getDictFromFile(args[2]); //file of words
+                String fileN=in.nextLine();
+                String[] tmpDict=getDictFromFile(fileN); 
+		//String[] tmpDict=getDictFromFile(args[2]); //file of words
 		if (tmpDict!=null)
 			dict= new WordDictionary(tmpDict);
 		
