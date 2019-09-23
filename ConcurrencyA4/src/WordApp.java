@@ -65,7 +65,21 @@ public class WordApp {
 	      public void actionPerformed(ActionEvent evt) {
 	          String text = textEntry.getText();
 	          //[snip]
-	          textEntry.setText("");
+	          
+                  for(int i=0;i<words.length;i++){
+                      if(text.equals(words[i].getWord())){
+                          score.caughtWord(text.length());
+                          System.out.println(score.getScore());
+                          break;
+                      }
+                  }
+                  txt.setLayout(new BoxLayout(txt, BoxLayout.LINE_AXIS)); 
+                  scr.setText("Score:" + score.getScore()+ "    ");
+                  caught.setText("Caught: " + score.getCaught() + "    ");
+                  missed.setText("Missed:" + score.getMissed()+ "    ");
+                 
+                  
+                  textEntry.setText("");
 	          textEntry.requestFocus();
 	      }
 	    });
