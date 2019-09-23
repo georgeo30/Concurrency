@@ -67,13 +67,13 @@ public class WordApp {
 	          //[snip]
 	          
                   for(int i=0;i<words.length;i++){
-                      if(text.equals(words[i].getWord())){
+                      if(words[i].matchWord(text)){
                           score.caughtWord(text.length());
-                          System.out.println(score.getScore());
+                          words[i].resetWord();
                           break;
                       }
                   }
-                  txt.setLayout(new BoxLayout(txt, BoxLayout.LINE_AXIS)); 
+                   
                   scr.setText("Score:" + score.getScore()+ "    ");
                   caught.setText("Caught: " + score.getCaught() + "    ");
                   missed.setText("Missed:" + score.getMissed()+ "    ");
@@ -98,6 +98,7 @@ public class WordApp {
 		      public void actionPerformed(ActionEvent e)
 		      {
 		    	  //[snip]
+                          w.run();
 		    	  textEntry.requestFocus();  //return focus to the text entry field
 		      }
 		    });
@@ -108,6 +109,7 @@ public class WordApp {
 			    {
 			      public void actionPerformed(ActionEvent e)
 			      {
+                                  
 			    	  //[snip]
                                   
 			      }
@@ -190,6 +192,7 @@ public static String[] getDictFromFile(String filename) {
 	  	//initialize shared array of current words
 
 		for (int i=0;i<noWords;i++) {
+                    
 			words[i]=new WordRecord(dict.getNewWord(),i*x_inc,yLimit);
 		}
 
