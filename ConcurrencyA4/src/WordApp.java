@@ -58,7 +58,6 @@ public class WordApp {
 	    txt.add(scr);
     
 	    //[snip]
-             
 	    final JTextField textEntry = new JTextField("",20);
 	   textEntry.addActionListener(new ActionListener()
 	    {
@@ -70,7 +69,7 @@ public class WordApp {
                       if(words[i].matchWord(text)){
                           score.caughtWord(text.length());
                           words[i].resetWord();
-                          break;
+                          
                       }
                   }
                    

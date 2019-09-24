@@ -50,10 +50,10 @@ public class WordPanel extends JPanel implements Runnable{
                 @Override
 		public void run() {
                     while(true){
-                        
+                     
                     for (int i=0;i<noWords;i++){	    	
 		    	//g.drawString(words[i].getWord(),words[i].getX(),words[i].getY());	
-		    	
+		    	                 
                         wordThreads w=new wordThreads(i,this);
                         Thread t=new Thread(w);
                         
@@ -63,6 +63,7 @@ public class WordPanel extends JPanel implements Runnable{
                             Logger.getLogger(WordPanel.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         t.start();
+                        
                         repaint();
                     //g.drawString(words[i].getWord(),words[i].getX(),words[i].getY()+20);
                        /** try{
@@ -83,10 +84,10 @@ public class WordPanel extends JPanel implements Runnable{
 			//add in code to animate this
                         
 		
-                    }}
+                    }
 		
                     }
-                    
+                }
                     
                 
 
