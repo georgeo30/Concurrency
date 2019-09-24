@@ -21,6 +21,7 @@ public class wordThreads implements Runnable {
          try{
                             
                             wp.words[i].drop(wp.words[i].getSpeed()/50);
+                            //System.out.println(wp.words[i]+"   "+i);
                             wp.repaint();
                             //Thread.sleep(5000);
                             //System.out.println(words[i].getWord()+" : "+words[i].getY());
@@ -28,10 +29,10 @@ public class wordThreads implements Runnable {
                         catch(Exception e){
                             
                             
-                        }/*
-                        if(wp.words[i].getY()>=maxY){
+                        }
+                        if(wp.words[i].getY()>=wp.maxY){
                             wp.words[i].setY(0);
-                        }*/
+                        }
                        
     }
 }

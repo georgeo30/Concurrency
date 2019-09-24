@@ -17,7 +17,7 @@ public class WordPanel extends JPanel implements Runnable{
 		public static volatile boolean done;
 		public WordRecord[] words;
 		private int noWords;
-		private int maxY;
+		public int maxY;
                 static Graphics g;
 		
 		public void paintComponent(Graphics g) {
@@ -58,7 +58,7 @@ public class WordPanel extends JPanel implements Runnable{
                         Thread t=new Thread(w);
                         
                         try {
-                            t.sleep(200);
+                            t.sleep(100);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(WordPanel.class.getName()).log(Level.SEVERE, null, ex);
                         }
