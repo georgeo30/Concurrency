@@ -31,7 +31,7 @@ public class wordThreads implements Runnable {
                             
                         }
                         if(wp.words[i].getY()>=wp.maxY){
-                            wp.words[i].setY(0);
+                            wp.words[i].resetWord();
                         }
                        
     }
