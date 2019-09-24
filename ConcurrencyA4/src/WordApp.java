@@ -30,7 +30,7 @@ public class WordApp {
 
 	static WordPanel w;
 	
-	
+	public static Boolean check=true;
 	
 	public static void setupGUI(int frameX,int frameY,int yLimit) {
 		// Frame init and dimensions
@@ -58,7 +58,7 @@ public class WordApp {
 	    txt.add(scr);
     
 	    //[snip]
-  
+             
 	    final JTextField textEntry = new JTextField("",20);
 	   textEntry.addActionListener(new ActionListener()
 	    {
@@ -94,12 +94,18 @@ public class WordApp {
 		
 			// add the listener to the jbutton to handle the "pressed" event
 			startB.addActionListener(new ActionListener()
+                                
 		    {
 		      public void actionPerformed(ActionEvent e)
 		      {
 		    	  //[snip]
-                          w.run();
-		    	  textEntry.requestFocus();  //return focus to the text entry field
+                          
+                          
+                          Thread newThread=new Thread(w);
+                          
+                          newThread.start();
+                          
+		    	  textEntry.requestFocus(); //return focus to the text entry field
 		      }
 		    });
 		JButton endB = new JButton("End");;
