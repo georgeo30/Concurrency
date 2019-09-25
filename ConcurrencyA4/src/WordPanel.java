@@ -49,20 +49,16 @@ public class WordPanel extends JPanel implements Runnable{
 		
                 @Override
 		public void run() {
-                    while(true){
-                     
+                    
+                    wordThreads[] t=new wordThreads[noWords];
+                    
                     for (int i=0;i<noWords;i++){	    	
 		    	//g.drawString(words[i].getWord(),words[i].getX(),words[i].getY());	
-		    	                 
-                        wordThreads w=new wordThreads(i,this);
-                        Thread t=new Thread(w);
                         
-                        try {
-                            t.sleep(100);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(WordPanel.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        t.start();
+                        
+                        t[i]=new wordThreads(i,this);
+                                               
+                        t[i].start();
                         
                         repaint();
                     //g.drawString(words[i].getWord(),words[i].getX(),words[i].getY()+20);
@@ -86,7 +82,7 @@ public class WordPanel extends JPanel implements Runnable{
 		
                     }
 		
-                    }
+                    
                 }
                     
                 
