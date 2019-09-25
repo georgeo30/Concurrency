@@ -15,17 +15,22 @@ import java.util.logging.Logger;
 public class wordThreads implements Runnable {
     public int i;
     public static WordPanel wp;
+   
+   
     wordThreads(int i,WordPanel wp){
         this.i=i;
         this.wp=wp;
         
+        
     }
+    
     
     void start(){
      Thread t = new Thread(this);
      t.start();
-     System.out.print(i);
+     
     }
+     
     @Override
     public void run(){
         
@@ -33,20 +38,30 @@ public class wordThreads implements Runnable {
             //System.out.print(i);
          try{
                             
-                            wp.words[i].drop(wp.words[i].getSpeed()/25);
+                            wp.words[i].drop(wp.words[i].getSpeed());
                             //System.out.println(wp.words[i]+"   "+i);
                             wp.repaint();
                             
-                            Thread.sleep(200);
+                            Thread.sleep(50);
                             //System.out.println(words[i].getWord()+" : "+words[i].getY());
                         }
                         catch(Exception e){
-                            
+                         
                             
                         }
                         if(wp.words[i].getY()>=wp.maxY){
+                            
                             wp.words[i].resetWord();
+                            
+                            missI();
+                        }
                         }
         }
-    }
+        
+    public synchronized void missI(){
+        WordApp.score.missedWord();
+        WordApp.missed.setText("Missed:" + WordApp.score.getMissed()+ "    ");
+
+    } 
+   
 }

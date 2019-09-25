@@ -1,7 +1,7 @@
 
 
 public class Score {
-	private int missedWords;
+	public int missedWords;
 	private int caughtWords;
 	private int gameScore;
 	

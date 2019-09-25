@@ -27,9 +27,10 @@ public class WordApp {
 	static WordRecord[] words;
 	static volatile boolean done;  //must be volatile
 	static 	Score score = new Score();
+        public  static JLabel missed;
 
 	static WordPanel w;
-	
+        static wordEntry we=new wordEntry();
 	public static Boolean check=true;
 	
 	public static void setupGUI(int frameX,int frameY,int yLimit) {
@@ -51,7 +52,7 @@ public class WordApp {
 	    JPanel txt = new JPanel();
 	    txt.setLayout(new BoxLayout(txt, BoxLayout.LINE_AXIS)); 
 	    JLabel caught =new JLabel("Caught: " + score.getCaught() + "    ");
-	    JLabel missed =new JLabel("Missed:" + score.getMissed()+ "    ");
+	    missed =new JLabel("Missed:" + score.getMissed()+ "    ");
 	    JLabel scr =new JLabel("Score:" + score.getScore()+ "    ");    
 	    txt.add(caught);
 	    txt.add(missed);
@@ -64,13 +65,10 @@ public class WordApp {
 	      public void actionPerformed(ActionEvent evt) {
 	          String text = textEntry.getText();
 	          //[snip]
-	          
+	          Thread t=new Thread(we);
+                  
                   for(int i=0;i<words.length;i++){
-                      if(words[i].matchWord(text)){
-                          score.caughtWord(text.length());
-                          words[i].resetWord();
-                          
-                      }
+                      
                   }
                    
                   scr.setText("Score:" + score.getScore()+ "    ");
@@ -129,6 +127,7 @@ public class WordApp {
 			      {
 			    	  //[snip]
                                   frame.dispose();
+                                  System.exit(0);
 			      }
 			    });
 		
@@ -203,5 +202,13 @@ public static String[] getDictFromFile(String filename) {
 
 
 	}
-
+        
+        public static class wordEntry implements Runnable{
+           @Override
+           public void run(){
+               
+        
+        }
 }
+}
+
