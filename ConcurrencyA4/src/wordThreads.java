@@ -55,7 +55,7 @@ public class wordThreads implements Runnable {
                             }
                             else{
                             wp.words[i].resetWord();
-                            synchronized(this){WordApp.endCounter++;}
+                            
                             missI();}
                         }
                         }
@@ -63,6 +63,7 @@ public class wordThreads implements Runnable {
         
     
     public synchronized void missI(){
+        WordApp.endCounter++;
         WordApp.score.missedWord();
         WordApp.missed.setText("Missed:" + WordApp.score.getMissed()+ "    ");
 

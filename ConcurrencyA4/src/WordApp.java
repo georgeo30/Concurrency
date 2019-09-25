@@ -91,7 +91,7 @@ public class WordApp {
 	   txt.add(textEntry);
 	   txt.setMaximumSize( txt.getPreferredSize() );
 	   g.add(txt);
-	    
+	    Thread newThread=new Thread(w);
 	    JPanel b = new JPanel();
         b.setLayout(new BoxLayout(b, BoxLayout.LINE_AXIS)); 
 	   	JButton startB = new JButton("Start");;
@@ -105,23 +105,41 @@ public class WordApp {
 		    	  //[snip]
                           
                           w.check=true;
-                          Thread newThread=new Thread(w);
+                          
                           
                           newThread.start();
                           
 		    	  textEntry.requestFocus(); //return focus to the text entry field
 		      }
 		    });
-		JButton endB = new JButton("End");;
+		JButton pauseB = new JButton("Pause");;
 			
 				// add the listener to the jbutton to handle the "pressed" event
-				endB.addActionListener(new ActionListener()
+				pauseB.addActionListener(new ActionListener()
 			    {
 			      public void actionPerformed(ActionEvent e)
 			      {
                                  w.check=false; 
 			    	  //[snip]
                                   
+			      }
+			    });
+                JButton endB = new JButton("End");;
+			
+				// add the listener to the jbutton to handle the "pressed" event
+				endB.addActionListener(new ActionListener()
+			    {
+			      public void actionPerformed(ActionEvent e)
+			      {
+			    	  //[snip]
+                                  newThread.stop();
+                                  endCounter=0;
+                                  score.resetScore();
+                                  for(int i=0;i<noWords;i++){
+                                  words[i].resetPos();
+                                  }
+                                 JOptionPane.showMessageDialog (null, "Your score is " + score.getScore(), "Results",JOptionPane.PLAIN_MESSAGE);
+                                     
 			      }
 			    });
                                 //exit button
@@ -139,7 +157,8 @@ public class WordApp {
 			    });
 		
 		b.add(startB);
-		b.add(endB);
+		b.add(pauseB);
+                b.add(endB);
                 b.add(quitB);
                 
 		
