@@ -99,7 +99,7 @@ public class WordApp {
 		      {
 		    	  //[snip]
                           
-                          
+                          w.check=true;
                           Thread newThread=new Thread(w);
                           
                           newThread.start();
@@ -114,7 +114,7 @@ public class WordApp {
 			    {
 			      public void actionPerformed(ActionEvent e)
 			      {
-                                  
+                                 w.check=false; 
 			    	  //[snip]
                                   
 			      }

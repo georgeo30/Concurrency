@@ -19,6 +19,7 @@ public class WordPanel extends JPanel implements Runnable{
 		private int noWords;
 		public int maxY;
                 static Graphics g;
+                public boolean check;
 		
 		public void paintComponent(Graphics g) {
                     this.g=g;

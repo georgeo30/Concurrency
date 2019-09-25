@@ -29,7 +29,7 @@ public class wordThreads implements Runnable {
     @Override
     public void run(){
         
-        while(true){
+        while(wp.check){
             //System.out.print(i);
          try{
                             
