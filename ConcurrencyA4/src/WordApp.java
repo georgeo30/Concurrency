@@ -35,6 +35,7 @@ public class WordApp {
 	static String textE;
         static int current;
         static int endCounter;
+        static Thread newThread;
 	public static void setupGUI(int frameX,int frameY,int yLimit) {
 		// Frame init and dimensions
     	JFrame frame = new JFrame("WordGame"); 
@@ -91,7 +92,7 @@ public class WordApp {
 	   txt.add(textEntry);
 	   txt.setMaximumSize( txt.getPreferredSize() );
 	   g.add(txt);
-	    Thread newThread=new Thread(w);
+	    
 	    JPanel b = new JPanel();
         b.setLayout(new BoxLayout(b, BoxLayout.LINE_AXIS)); 
 	   	JButton startB = new JButton("Start");;
@@ -106,7 +107,7 @@ public class WordApp {
                           
                           w.check=true;
                           
-                          
+                          newThread=new Thread(w);
                           newThread.start();
                           
 		    	  textEntry.requestFocus(); //return focus to the text entry field
@@ -132,13 +133,19 @@ public class WordApp {
 			      public void actionPerformed(ActionEvent e)
 			      {
 			    	  //[snip]
-                                  newThread.stop();
+                                  w.check=false;
+                                  JOptionPane.showMessageDialog (null, "Your score is " + score.getScore(), "Results",JOptionPane.PLAIN_MESSAGE);
+                                  score.missedWords=0;
+                                  missed.setText("Missed:" + score.getMissed()+ "    ");
+                                  newThread.interrupt();
+                                  
+                                  
                                   endCounter=0;
                                   score.resetScore();
                                   for(int i=0;i<noWords;i++){
                                   words[i].resetPos();
                                   }
-                                 JOptionPane.showMessageDialog (null, "Your score is " + score.getScore(), "Results",JOptionPane.PLAIN_MESSAGE);
+                                 
                                      
 			      }
 			    });
