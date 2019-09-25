@@ -32,7 +32,9 @@ public class WordApp {
 	static WordPanel w;
         static wordEntry we=new wordEntry();
 	public static Boolean check=true;
-	
+	static String textE;
+        static int current;
+        static int endCounter;
 	public static void setupGUI(int frameX,int frameY,int yLimit) {
 		// Frame init and dimensions
     	JFrame frame = new JFrame("WordGame"); 
@@ -65,11 +67,16 @@ public class WordApp {
 	      public void actionPerformed(ActionEvent evt) {
 	          String text = textEntry.getText();
 	          //[snip]
-	          Thread t=new Thread(we);
-                  
-                  for(int i=0;i<words.length;i++){
+                  textE=text;
+	          Thread t;
+                  for(int i=0;i<noWords;i++){
+                      t=new Thread(we);
+                      current=i;
                       
+                      t.run();
                   }
+                  
+                 
                    
                   scr.setText("Score:" + score.getScore()+ "    ");
                   caught.setText("Caught: " + score.getCaught() + "    ");
@@ -207,7 +214,19 @@ public static String[] getDictFromFile(String filename) {
            @Override
            public void run(){
                
-        
+                      
+               
+               if(words[current].matchWord(getText())){
+                          
+                          score.caughtWord(textE.length());
+                          synchronized(this){endCounter++;}
+                          words[current].resetWord();
+                          
+                      }
+               
+        }
+        synchronized String getText(){
+            return textE;
         }
 }
 }

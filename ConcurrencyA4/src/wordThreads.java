@@ -50,14 +50,18 @@ public class wordThreads implements Runnable {
                             
                         }
                         if(wp.words[i].getY()>=wp.maxY){
-                            
+                            if(WordApp.endCounter>=WordApp.totalWords){
+                                WordApp.check=false;
+                            }
+                            else{
                             wp.words[i].resetWord();
-                            
-                            missI();
+                            synchronized(this){WordApp.endCounter++;}
+                            missI();}
                         }
                         }
         }
         
+    
     public synchronized void missI(){
         WordApp.score.missedWord();
         WordApp.missed.setText("Missed:" + WordApp.score.getMissed()+ "    ");
