@@ -5,12 +5,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 
 
 import java.util.Scanner;
-import java.util.concurrent.*;
+
 //model is separate from the view.
 
 public class WordApp {
@@ -28,10 +30,11 @@ public class WordApp {
 	static volatile boolean done;  //must be volatile
 	static 	Score score = new Score();
         public  static JLabel missed;
-
+        public static JLabel caught;
+        public static JLabel scr;
 	static WordPanel w;
         static wordEntry we=new wordEntry();
-	public static Boolean check=true;
+	
 	static String textE;
         static int current;
         static int endCounter;
@@ -54,9 +57,9 @@ public class WordApp {
 	    
 	    JPanel txt = new JPanel();
 	    txt.setLayout(new BoxLayout(txt, BoxLayout.LINE_AXIS)); 
-	    JLabel caught =new JLabel("Caught: " + score.getCaught() + "    ");
+	    caught =new JLabel("Caught: " + score.getCaught() + "    ");
 	    missed =new JLabel("Missed:" + score.getMissed()+ "    ");
-	    JLabel scr =new JLabel("Score:" + score.getScore()+ "    ");    
+            scr =new JLabel("Score:" + score.getScore()+ "    ");    
 	    txt.add(caught);
 	    txt.add(missed);
 	    txt.add(scr);
@@ -69,14 +72,10 @@ public class WordApp {
 	          String text = textEntry.getText();
 	          //[snip]
                   textE=text;
-	          Thread t;
-                  for(int i=0;i<noWords;i++){
-                      t=new Thread(we);
-                      current=i;
-                      
-                      t.run();
-                  }
+	          Thread t=new Thread(we);
+                  t.start();
                   
+                
                  
                    
                   scr.setText("Score:" + score.getScore()+ "    ");
@@ -134,7 +133,7 @@ public class WordApp {
 			      {
 			    	  //[snip]
                                   w.check=false;
-                                  JOptionPane.showMessageDialog (null, "Your score is " + score.getScore(), "Results",JOptionPane.PLAIN_MESSAGE);
+                                JOptionPane.showMessageDialog (null, "Game Stopped \nYour score is " + score.getScore()+"\n"+"You caught " + score.getCaught()+" words \n"+"You missed " + score.getMissed()+" words", "Results",JOptionPane.PLAIN_MESSAGE);
                                   score.missedWords=0;
                                   missed.setText("Missed:" + score.getMissed()+ "    ");
                                   newThread.interrupt();
@@ -232,24 +231,51 @@ public static String[] getDictFromFile(String filename) {
                     
 			words[i]=new WordRecord(dict.getNewWord(),i*x_inc,yLimit);
 		}
+                
+               
 
 
 	}
+        
         
         public static class wordEntry implements Runnable{
            @Override
            public void run(){
                
                       
-               
+               for(int current=0;current<noWords;current++){
                if(words[current].matchWord(getText())){
-                          
+                         if(endCounter>=totalWords){
+                                w.check=false;
+                                newThread.interrupt();
+                               
+                                JOptionPane.showMessageDialog (null, "Game Over \nYour score is " + score.getScore()+"\n"+"You caught " + score.getCaught()+" words \n"+"You missed " + score.getMissed()+" words", "Results",JOptionPane.PLAIN_MESSAGE);
+                                
+                                 
+                                 score.resetScore();
+                                  missed.setText("Missed:" + score.getMissed()+ "    ");
+                                  scr.setText("Score:" + score.getScore()+ "    ");
+                                  caught.setText("caught:" + score.getCaught()+ "    ");
+                                  
+                                  
+                                  
+                                  endCounter=0;
+                                  
+                                  for(int i=0;i<WordApp.noWords;i++){
+                                  words[i].resetPos();
+                                  }
+                                
+                            } 
+                         else{
                           score.caughtWord(textE.length());
                           synchronized(this){endCounter++;}
                           words[current].resetWord();
-                          
+                          missed.setText("Missed:" + score.getMissed()+ "    ");
+                                  scr.setText("Score:" + score.getScore()+ "    ");
+                                  caught.setText("caught:" + score.getCaught()+ "    ");
+                         }
                       }
-               
+               }    
         }
         synchronized String getText(){
             return textE;

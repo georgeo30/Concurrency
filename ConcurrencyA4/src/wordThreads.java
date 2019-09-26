@@ -1,6 +1,9 @@
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
+
+
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -45,19 +48,16 @@ public class wordThreads implements Runnable {
                             Thread.sleep(50);
                             //System.out.println(words[i].getWord()+" : "+words[i].getY());
                         }
-                        catch(Exception e){
-                         
-                            
-                        }
+                        catch(Exception e){}
+         
+         
                         if(wp.words[i].getY()>=wp.maxY){
-                            if(WordApp.endCounter>=WordApp.totalWords){
-                                WordApp.check=false;
-                            }
-                            else{
+                            
+                            
                             wp.words[i].resetWord();
                             
                             missI();}
-                        }
+                        
                         }
         }
         
@@ -66,6 +66,26 @@ public class wordThreads implements Runnable {
         WordApp.endCounter++;
         WordApp.score.missedWord();
         WordApp.missed.setText("Missed:" + WordApp.score.getMissed()+ "    ");
+        if(WordApp.endCounter>=WordApp.totalWords){
+                                wp.check=false;
+                                
+                                
+                                JOptionPane.showMessageDialog (null, "Game Over \nYour score is " + WordApp.score.getScore()+"\n"+"You caught " + WordApp.score.getCaught()+" words \n"+"You missed " + WordApp.score.getMissed()+" words", "Results",JOptionPane.PLAIN_MESSAGE);
+                                 
+                                 WordApp.score.resetScore();
+                                  WordApp.missed.setText("Missed:" + WordApp.score.getMissed()+ "    ");
+                                  WordApp.scr.setText("Score:" + WordApp.score.getScore()+ "    ");
+                                  WordApp.caught.setText("caught:" + WordApp.score.getCaught()+ "    ");
+                                  
+                                  
+                                  WordApp.endCounter=0;
+                                  
+                                  for(int i=0;i<WordApp.noWords;i++){
+                                  WordApp.words[i].resetPos();
+                                  }
+                                
+                            }
+        
 
     } 
    
