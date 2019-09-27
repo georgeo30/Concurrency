@@ -66,7 +66,7 @@ public class wordThreads implements Runnable {
                     WordApp.missed.setText("Missed:" + WordApp.score.getMissed()+ "    ");
                     WordApp.scr.setText("Score:" + WordApp.score.getScore()+ "    ");
                     WordApp.caught.setText("caught:" + WordApp.score.getCaught()+ "    ");
-            
+                    WordApp.startB.setEnabled(true);
             
                     for(int i=0;i<WordApp.noWords;i++){
                         WordApp.words[i].resetPos();

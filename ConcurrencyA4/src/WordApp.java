@@ -34,7 +34,7 @@ public class WordApp {
         public static JLabel scr;
 	static WordPanel w;
         static wordEntry we=new wordEntry();
-	
+	public static JButton startB;
 	static String textE;
         static int current;
         
@@ -94,7 +94,7 @@ public class WordApp {
 	    
 	    JPanel b = new JPanel();
         b.setLayout(new BoxLayout(b, BoxLayout.LINE_AXIS)); 
-	   	JButton startB = new JButton("Start");;
+	   	startB = new JButton("Start");;
 		
 			// add the listener to the jbutton to handle the "pressed" event
 			startB.addActionListener(new ActionListener()
@@ -108,7 +108,7 @@ public class WordApp {
                           
                           newThread=new Thread(w);
                           newThread.start();
-                          
+                          startB.setEnabled(false);
 		    	  textEntry.requestFocus(); //return focus to the text entry field
 		      }
 		    });
@@ -121,7 +121,7 @@ public class WordApp {
 			      {
                                  w.check=false; 
 			    	  //[snip]
-                                  
+                                 startB.setEnabled(true); 
 			      }
 			    });
                 JButton endB = new JButton("End");;
@@ -139,7 +139,7 @@ public class WordApp {
                                   newThread.interrupt();
                                   
                                   
-                                  
+                                  startB.setEnabled(true);
                                   score.resetScore();
                                   for(int i=0;i<noWords;i++){
                                   words[i].resetPos();
@@ -259,7 +259,7 @@ public static String[] getDictFromFile(String filename) {
                                   scr.setText("Score:" + score.getScore()+ "    ");
                                   caught.setText("caught:" + score.getCaught()+ "    ");
                                   
-                                  
+                                  startB.setEnabled(true);
                                   
                                   
                                   
