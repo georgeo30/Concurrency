@@ -37,7 +37,7 @@ public class WordApp {
 	
 	static String textE;
         static int current;
-        static int endCounter;
+        
         static Thread newThread;
 	public static void setupGUI(int frameX,int frameY,int yLimit) {
 		// Frame init and dimensions
@@ -139,7 +139,7 @@ public class WordApp {
                                   newThread.interrupt();
                                   
                                   
-                                  endCounter=0;
+                                  
                                   score.resetScore();
                                   for(int i=0;i<noWords;i++){
                                   words[i].resetPos();
@@ -245,7 +245,9 @@ public static String[] getDictFromFile(String filename) {
                       
                for(int current=0;current<noWords;current++){
                if(words[current].matchWord(getText())){
-                         if(endCounter>=totalWords){
+                   synchronized(score){
+                         if(score.getTotal()>=totalWords){
+                             
                                 w.check=false;
                                 newThread.interrupt();
                                
@@ -259,7 +261,7 @@ public static String[] getDictFromFile(String filename) {
                                   
                                   
                                   
-                                  endCounter=0;
+                                  
                                   
                                   for(int i=0;i<WordApp.noWords;i++){
                                   words[i].resetPos();
@@ -267,14 +269,16 @@ public static String[] getDictFromFile(String filename) {
                                 
                             } 
                          else{
+                          
                           score.caughtWord(textE.length());
-                          synchronized(this){endCounter++;}
+                          
                           words[current].resetWord();
                           missed.setText("Missed:" + score.getMissed()+ "    ");
                                   scr.setText("Score:" + score.getScore()+ "    ");
                                   caught.setText("caught:" + score.getCaught()+ "    ");
                          }
                       }
+               }
                }    
         }
         synchronized String getText(){

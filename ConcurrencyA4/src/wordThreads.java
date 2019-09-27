@@ -41,50 +41,50 @@ public class wordThreads implements Runnable {
             //System.out.print(i);
          try{
                             
-                            wp.words[i].drop(wp.words[i].getSpeed());
+            wp.words[i].drop(wp.words[i].getSpeed());
                             //System.out.println(wp.words[i]+"   "+i);
-                            wp.repaint();
+            wp.repaint();
                             
-                            Thread.sleep(50);
+            Thread.sleep(60);
                             //System.out.println(words[i].getWord()+" : "+words[i].getY());
-                        }
-                        catch(Exception e){}
+            }
+            catch(Exception e){}
          
-         
-                        if(wp.words[i].getY()>=wp.maxY){
-                            
-                            
-                            wp.words[i].resetWord();
-                            
-                            missI();}
-                        
-                        }
+            if(wp.words[i].getY()>=wp.maxY){
+                wp.words[i].resetWord();
+                //missI();
+                synchronized(WordApp.score){
+                    WordApp.score.missedWord();
+                    WordApp.missed.setText("Missed:" + WordApp.score.getMissed()+ "    ");
+                    
+                    if(WordApp.score.getTotal()>=WordApp.totalWords){
+                    wp.check=false;
+                    JOptionPane.showMessageDialog (null, "Game Over \nYour score is " + WordApp.score.getScore()+"\n"+"You caught " + WordApp.score.getCaught()+" words \n"+"You missed " + WordApp.score.getMissed()+" words", "Results",JOptionPane.PLAIN_MESSAGE);                     
+            
+                    WordApp.score.resetScore();
+                       
+                    WordApp.missed.setText("Missed:" + WordApp.score.getMissed()+ "    ");
+                    WordApp.scr.setText("Score:" + WordApp.score.getScore()+ "    ");
+                    WordApp.caught.setText("caught:" + WordApp.score.getCaught()+ "    ");
+            
+            
+                    for(int i=0;i<WordApp.noWords;i++){
+                        WordApp.words[i].resetPos();
+                    }
+                
+                }}
+            }
         }
+    }
         
     
     public synchronized void missI(){
-        WordApp.endCounter++;
+        
+        
         WordApp.score.missedWord();
         WordApp.missed.setText("Missed:" + WordApp.score.getMissed()+ "    ");
-        if(WordApp.endCounter>=WordApp.totalWords){
-                                wp.check=false;
-                                
-                                
-                                JOptionPane.showMessageDialog (null, "Game Over \nYour score is " + WordApp.score.getScore()+"\n"+"You caught " + WordApp.score.getCaught()+" words \n"+"You missed " + WordApp.score.getMissed()+" words", "Results",JOptionPane.PLAIN_MESSAGE);
-                                 
-                                 WordApp.score.resetScore();
-                                  WordApp.missed.setText("Missed:" + WordApp.score.getMissed()+ "    ");
-                                  WordApp.scr.setText("Score:" + WordApp.score.getScore()+ "    ");
-                                  WordApp.caught.setText("caught:" + WordApp.score.getCaught()+ "    ");
-                                  
-                                  
-                                  WordApp.endCounter=0;
-                                  
-                                  for(int i=0;i<WordApp.noWords;i++){
-                                  WordApp.words[i].resetPos();
-                                  }
-                                
-                            }
+        
+        
         
 
     } 
