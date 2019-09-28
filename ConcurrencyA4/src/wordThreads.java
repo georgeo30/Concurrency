@@ -54,6 +54,7 @@ public class wordThreads implements Runnable {
                 wp.words[i].resetWord();
                 //missI();
                 synchronized(WordApp.score){
+                    if(wp.check){
                     WordApp.score.missedWord();
                     WordApp.missed.setText("Missed:" + WordApp.score.getMissed()+ "    ");
                     
@@ -72,21 +73,11 @@ public class wordThreads implements Runnable {
                         WordApp.words[i].resetPos();
                     }
                 
-                }}
+                }}}
             }
         }
     }
         
-    
-    public synchronized void missI(){
-        
-        
-        WordApp.score.missedWord();
-        WordApp.missed.setText("Missed:" + WordApp.score.getMissed()+ "    ");
-        
-        
-        
 
-    } 
    
 }
