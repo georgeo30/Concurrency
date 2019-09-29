@@ -134,7 +134,7 @@ public class WordApp {
 			    	  //[snip]
                                   w.check=false;
                                 JOptionPane.showMessageDialog (null, "Game Stopped \nYour score is " + score.getScore()+"\n"+"You caught " + score.getCaught()+" words \n"+"You missed " + score.getMissed()+" words", "Results",JOptionPane.PLAIN_MESSAGE);
-                                  score.missedWords=0;
+                                  //score.missedWords=0;
                                   missed.setText("Missed:" + score.getMissed()+ "    ");
                                   newThread.interrupt();
                                   
