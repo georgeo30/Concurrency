@@ -1,0 +1,27 @@
+JAVAC=/usr/bin/javac
+.SUFFIXES: .java .class
+
+SRCDIR=src
+BINDIR=bin
+DOCDIR=doc
+MAIN=WordApp
+TOTALWORDS=25
+FALLINGWORDS=5
+DICT=example_dict.txt
+
+default:
+	$(JAVAC) -d $(BINDIR) $(SRCDIR)/*.java $<
+
+clean:
+	rm $(BINDIR)/*.class
+	rm -Rf doc
+
+doc:
+	javadoc -d $(DOCDIR) $(SRCDIR)/*.java
+
+run:
+	java -cp ./bin WordApp 25 6 fsdsdf
+
+example_dict:
+
+	java -cp ./bin WordApp 25 6 example_dict.txt
