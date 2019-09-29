@@ -245,14 +245,14 @@ public static String[] getDictFromFile(String filename) {
                 
 		//deal with command line arguments
                 Scanner in=new Scanner(System.in);
-                totalWords=Integer.parseInt(in.nextLine());
-                noWords=Integer.parseInt(in.nextLine());
-		//totalWords=Integer.parseInt(args[0]);  //total words to fall
-		//noWords=Integer.parseInt(args[1]); // total words falling at any point
+                //totalWords=Integer.parseInt(in.nextLine());
+                //noWords=Integer.parseInt(in.nextLine());
+		totalWords=Integer.parseInt(args[0]);  //total words to fall
+		noWords=Integer.parseInt(args[1]); // total words falling at any point
 		assert(totalWords>=noWords); // this could be done more neatly
-                String fileN=in.nextLine();
-                String[] tmpDict=getDictFromFile(fileN); 
-		//String[] tmpDict=getDictFromFile(args[2]); //file of words
+                //String fileN=in.nextLine();
+                //String[] tmpDict=getDictFromFile(fileN); 
+		String[] tmpDict=getDictFromFile(args[2]); //file of words
 		if (tmpDict!=null)
 			dict= new WordDictionary(tmpDict);
 		
