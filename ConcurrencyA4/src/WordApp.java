@@ -144,6 +144,9 @@ public class WordApp {
                                   for(int i=0;i<noWords;i++){
                                   words[i].resetPos();
                                   }
+                                  missed.setText("Missed:" + score.getMissed()+ "    ");
+                                  scr.setText("Score:" + score.getScore()+ "    ");
+                                  caught.setText("caught:" + score.getCaught()+ "    ");
                                  
                                      
 			      }
