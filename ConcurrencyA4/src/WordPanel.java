@@ -20,7 +20,11 @@ public class WordPanel extends JPanel implements Runnable{
 		public int maxY;
                 static Graphics g;
                 public volatile boolean check;
-		
+		/**
+                 * Paincomponent is responsible for the changes on the gui,
+                 * repaint method will call this method
+                 * @param g 
+                 */
 		public void paintComponent(Graphics g) {
                     this.g=g;
 		    int width = getWidth();
@@ -40,14 +44,20 @@ public class WordPanel extends JPanel implements Runnable{
                     }
 		   
 		  }
-		
+		/**
+                 * constructor 
+                 * @param words
+                 * @param maxY 
+                 */
 		WordPanel(WordRecord[] words, int maxY) {
 			this.words=words; //will this work?
 			noWords = words.length;
 			done=false;
 			this.maxY=maxY;		
 		}
-		
+		/**
+                 * Run method to start up the threads.
+                 */
                 @Override
 		public void run() {
                     
@@ -62,23 +72,7 @@ public class WordPanel extends JPanel implements Runnable{
                         t[i].start();
                         
                         repaint();
-                    //g.drawString(words[i].getWord(),words[i].getX(),words[i].getY()+20);
-                       /** try{
-                            Thread.sleep(100);
-                            words[i].drop(words[i].getSpeed()/30);
-                            //System.out.println(words[i].getWord()+" : "+words[i].getY());
-                        }
-                        catch(Exception e){
-                            
-                            
-                        }
-                        if(words[i].getY()>=maxY){
-                            words[i].setY(0);
-                        }
-                       
-                   repaint();*/
                     
-			//add in code to animate this
                         
 		
                     }

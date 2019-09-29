@@ -39,6 +39,13 @@ public class WordApp {
         static int current;
         
         static Thread newThread;
+        /**
+         * setting up the gui interface
+         * buttons are given roles
+         * @param frameX
+         * @param frameY
+         * @param yLimit 
+         */
 	public static void setupGUI(int frameX,int frameY,int yLimit) {
 		// Frame init and dimensions
     	JFrame frame = new JFrame("WordGame"); 
@@ -182,7 +189,11 @@ public class WordApp {
 		
 	}
 
-	
+/**
+ * reading words from dictionary
+ * @param filename
+ * @return 
+ */	
 public static String[] getDictFromFile(String filename) {
 		String [] dictStr = null;
 		try {
@@ -242,6 +253,9 @@ public static String[] getDictFromFile(String filename) {
         
         
         public static class wordEntry implements Runnable{
+            /**
+             * run method for threads to compare the input word to the words on the screen
+             */
            @Override
            public void run(){
                
@@ -284,6 +298,10 @@ public static String[] getDictFromFile(String filename) {
                }
                }    
         }
+           /**
+            * synchronized method to get the input text
+            * @return 
+            */
         synchronized String getText(){
             return textE;
         }

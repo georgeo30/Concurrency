@@ -13,13 +13,17 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author George
+ * @author Georgeo
  */
 public class wordThreads implements Runnable {
     public int i;
     public static WordPanel wp;
    
-   
+   /**
+    * constructor that takes in i value and wordPanel object
+    * @param i
+    * @param wp 
+    */
     wordThreads(int i,WordPanel wp){
         this.i=i;
         this.wp=wp;
@@ -27,13 +31,18 @@ public class wordThreads implements Runnable {
         
     }
     
-    
+   /**
+    * starts the threads
+    * safety
+    */ 
     void start(){
      Thread t = new Thread(this);
      t.start();
      
     }
-     
+     /**
+      * run method to drop and check the missed words
+      */
     @Override
     public void run(){
         
