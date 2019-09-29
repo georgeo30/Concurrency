@@ -69,7 +69,18 @@ public class wordThreads implements Runnable {
                     
                     if(WordApp.score.getTotal()>=WordApp.totalWords){
                     wp.check=false;
-                    JOptionPane.showMessageDialog (null, "Game Over \nYour score is " + WordApp.score.getScore()+"\n"+"You caught " + WordApp.score.getCaught()+" words \n"+"You missed " + WordApp.score.getMissed()+" words", "Results",JOptionPane.PLAIN_MESSAGE);                     
+                        WordApp.readFile();
+                        int high;
+                        if(WordApp.val>WordApp.score.getScore()){
+                            high=WordApp.val;
+                            
+                        }
+                        else{
+                            high=WordApp.score.getScore();
+                            WordApp.writeToFile(high+"");                           
+                        }
+                        
+                    JOptionPane.showMessageDialog (null, "Game Over \nYour score is " + WordApp.score.getScore()+"\n"+"You caught " + WordApp.score.getCaught()+" words \n"+"You missed " + WordApp.score.getMissed()+" words \n"+"High Score: "+high, "Results",JOptionPane.PLAIN_MESSAGE);                     
             
                     WordApp.score.resetScore();
                        

@@ -213,9 +213,36 @@ public static String[] getDictFromFile(String filename) {
 		return dictStr;
 
 	}
-
+/**
+     * writeToFile method 
+     * takes in a param and writes that string to a file
+     * used in testing cases through out the experiment
+     * @param toFile 
+     */
+    public static void writeToFile(String toFile){
+        try{
+            FileWriter file =new FileWriter("highScore.txt");
+            file.write(toFile);
+            file.close();
+            
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public static int val;
+    public static  void readFile(){
+        try{
+            Scanner myFile=new Scanner(new File("highScore.txt"));
+            val=myFile.nextInt();
+            
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 	public static void main(String[] args) {
-    	
+                
 		//deal with command line arguments
                 Scanner in=new Scanner(System.in);
                 totalWords=Integer.parseInt(in.nextLine());
@@ -267,8 +294,17 @@ public static String[] getDictFromFile(String filename) {
                              
                                 w.check=false;
                                 newThread.interrupt();
-                               
-                                JOptionPane.showMessageDialog (null, "Game Over \nYour score is " + score.getScore()+"\n"+"You caught " + score.getCaught()+" words \n"+"You missed " + score.getMissed()+" words", "Results",JOptionPane.PLAIN_MESSAGE);
+                                WordApp.readFile();
+                                int high;
+                                if(WordApp.val>WordApp.score.getScore()){
+                                    high=WordApp.val;
+                            
+                                 }
+                                else{
+                                    high=WordApp.score.getScore();
+                                    WordApp.writeToFile(high+"");                           
+                                }
+                            JOptionPane.showMessageDialog (null, "Game Over \nYour score is " + WordApp.score.getScore()+"\n"+"You caught " + WordApp.score.getCaught()+" words \n"+"You missed " + WordApp.score.getMissed()+" words \n"+"High Score: "+high, "Results",JOptionPane.PLAIN_MESSAGE);                     
                                 
                                  
                                  score.resetScore();
